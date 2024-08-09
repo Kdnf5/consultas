@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración</title>
+    <link rel="stylesheet" href="config.css">
+</head>
+<body class="light-theme">
+    <div class="container">
+        <h1>Configuración</h1>
+        <style>
+            /* Estilos básicos para la configuración */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+.container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settings-section {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+}
+
+.light-theme {
+    background-color: #f0f0f0;
+}
+
+.dark-theme {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+        </style>
+        <!-- Sección de configuración del tema -->
+        <section id="themeSettings" class="settings-section">
+            <h2>Configuración de Tema</h2>
+            <button id="toggleTheme">Cambiar Tema</button>
+        </section>
+        
+        <!-- Sección de idioma -->
+        <section id="languageSettings" class="settings-section">
+            <h2>Configuración de Idioma</h2>
+            <select id="languageSelect">
+                <option value="en">Inglés</option>
+                <option value="es">Español</option>
+                <option value="fr">Francés</option>
+            </select>
+            <button id="saveLanguage">Guardar Idioma</button>
+        </section>
+    </div>
+
+    <script>
+        // Manejo de temas
+        const toggleButton = document.getElementById('toggleTheme');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            document.body.classList.toggle('dark-theme');
+            
+            // Guardar la preferencia en el almacenamiento local
+            if (document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Aplicar el tema guardado al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.remove('light-theme', 'dark-theme');
+                document.body.classList.add(`${savedTheme}-theme`);
+            }
+        });
+
+        // Manejo del idioma
+        const saveLanguageButton = document.getElementById('saveLanguage');
+        saveLanguageButton.addEventListener('click', () => {
+            const language = document.getElementById('languageSelect').value;
+            localStorage.setItem('language', language);
+            alert('Idioma guardado.');
+        });
+
+        // Aplicar el idioma guardado al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                document.getElementById('languageSelect').value = savedLanguage;
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
